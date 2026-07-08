@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Pong PWA</title>
+
+<!-- WAJIB SESUAI INSTRUKSI -->
+<link rel="manifest" href="/manifest.json" id="4h8jdf">
+<meta name="theme-color" content="#000000">
+
+<link rel="icon" type="image/png" sizes="192x192" href="images/icons/icon-192.png">
+<link rel="apple-touch-icon" href="images/icons/icon-192.png">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<!-- ============================
+     MENU SCREEN (Layar Awal)
+============================= -->
+
+<section id="menuScreen" class="menu-screen">
+
+    <div class="menu-content">
+
+        <div class="menu-logo">
+            <img src="images/icons/icon-192.png" alt="Pong Icon">
+        </div>
+
+        <h1 class="menu-title">PONG</h1>
+        <p class="menu-subtitle">Player vs AI</p>
+
+        <div class="difficulty-selector">
+
+            <span class="difficulty-label">Pilih Level AI</span>
+
+            <div class="difficulty-buttons" id="difficultyButtons">
+
+                <button class="diff-btn" data-level="easy">
+                    Easy
+                </button>
+
+                <button class="diff-btn active" data-level="medium">
+                    Medium
+                </button>
+
+                <button class="diff-btn" data-level="hard">
+                    Hard
+                </button>
+
+            </div>
+
+        </div>
+
+        <button id="startBtn" class="menu-play-btn">
+            Mulai Bermain
+        </button>
+
+        <div class="menu-hint">
+            <span>🖱️ Mouse &nbsp;•&nbsp; 👆 Sentuh Layar &nbsp;•&nbsp; ⌨️ W/S atau ↑/↓</span>
+        </div>
+
+        <div class="menu-footer">
+            <span>Pertama mencapai skor 7 menang</span>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ============================
+     GAME SCREEN
+============================= -->
+
+<header id="topbar" class="topbar hidden">
+    <h1>PONG</h1>
+    <p>Player vs AI</p>
+</header>
+
+<main id="gameScreen" class="game-area hidden">
+
+    <div class="scoreboard">
+
+        <div class="score-box">
+            <span class="label">PLAYER</span>
+            <span id="playerScore">0</span>
+        </div>
+
+        <div class="divider">:</div>
+
+        <div class="score-box">
+            <span class="label">AI</span>
+            <span id="aiScore">0</span>
+        </div>
+
+    </div>
+
+    <div class="canvas-wrapper">
+
+        <canvas
+            id="gameCanvas"
+            width="900"
+            height="500">
+        </canvas>
+
+    </div>
+
+    <div class="active-level" id="activeLevelBadge">
+        Level: Medium
+    </div>
+
+    <div class="controls">
+
+        <button id="menuBtn" class="ghost-btn">
+            Menu
+        </button>
+
+        <button id="restartBtn">
+            Restart
+        </button>
+
+    </div>
+
+</main>
+
+<!-- Floating Popup -->
+
+<div id="popup" class="popup hidden">
+
+    <div class="popup-card">
+
+        <h2 id="popupTitle">
+            You Win
+        </h2>
+
+        <p id="popupMessage">
+            Congratulations!
+        </p>
+
+        <div class="popup-actions">
+
+            <button id="playAgainBtn">
+                Main Lagi
+            </button>
+
+            <button id="menuFromPopupBtn" class="ghost-btn">
+                Menu Utama
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- Install App Notification -->
+
+<div id="installBanner" class="install-banner hidden">
+
+    <div class="install-icon">
+        <img src="images/icons/icon-192.png" alt="Pong App Icon">
+    </div>
+
+    <div class="install-text">
+        <strong>Pasang Pong PWA</strong>
+        <span>Install aplikasi ini di perangkatmu untuk main lebih cepat & offline.</span>
+    </div>
+
+    <div class="install-actions">
+        <button id="installBtn">Install</button>
+        <button id="installDismissBtn" aria-label="Tutup notifikasi">&times;</button>
+    </div>
+
+</div>
+
+<!-- Install Success Toast -->
+
+<div id="installToast" class="install-toast hidden">
+    Aplikasi berhasil dipasang di perangkatmu!
+</div>
+
+<noscript>
+
+Website ini membutuhkan JavaScript.
+
+</noscript>
+
+<script src="app.js"></script>
+
+<script>
+
+if ("serviceWorker" in navigator) {
+
+window.addEventListener("load", () => {
+
+navigator.serviceWorker.register("sw.js");
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

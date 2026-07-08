@@ -1,0 +1,977 @@
+/* ==========================================================
+   PONG PWA
+   File : style.css
+   ========================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    -webkit-tap-highlight-color:transparent;
+}
+
+:root{
+
+    --bg:#050505;
+
+    --panel:#101010;
+
+    --border:#232323;
+
+    --white:#ffffff;
+
+    --blue:#33b5ff;
+
+    --red:#ff4a4a;
+
+    --green:#2dff83;
+
+    --shadow:0 0 30px rgba(0,0,0,.45);
+
+    --radius:18px;
+
+}
+
+html,
+body{
+
+    width:100%;
+    height:100%;
+
+}
+
+body{
+
+    font-family:Arial,Helvetica,sans-serif;
+
+    background:#000;
+
+    color:#fff;
+
+    overflow:hidden;
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+/* ==========================
+   Background
+========================== */
+
+.background{
+
+    position:fixed;
+
+    inset:0;
+
+    background:
+    radial-gradient(circle at top,#181818,#000 70%);
+
+    z-index:-2;
+
+}
+
+.background::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background-image:
+
+    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
+
+    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
+
+    background-size:35px 35px;
+
+    opacity:.4;
+
+}
+
+/* ==========================
+   Header
+========================== */
+
+.topbar{
+
+    padding:20px;
+
+    text-align:center;
+
+}
+
+.topbar h1{
+
+    font-size:38px;
+
+    letter-spacing:5px;
+
+    color:white;
+
+}
+
+.topbar p{
+
+    margin-top:6px;
+
+    color:#bbbbbb;
+
+}
+
+/* ==========================
+   Score
+========================== */
+
+.scoreboard{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:25px;
+
+    margin-bottom:20px;
+
+}
+
+.score-box{
+
+    width:120px;
+
+    padding:14px;
+
+    border-radius:var(--radius);
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    text-align:center;
+
+    box-shadow:var(--shadow);
+
+}
+
+.label{
+
+    display:block;
+
+    color:#aaaaaa;
+
+    font-size:13px;
+
+    margin-bottom:8px;
+
+}
+
+#playerScore{
+
+    color:var(--blue);
+
+    font-size:34px;
+
+    font-weight:bold;
+
+}
+
+#aiScore{
+
+    color:var(--red);
+
+    font-size:34px;
+
+    font-weight:bold;
+
+}
+
+.divider{
+
+    font-size:34px;
+
+    color:white;
+
+}
+
+/* ==========================
+   Game Area
+========================== */
+
+.game-area{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:20px;
+
+}
+
+.canvas-wrapper{
+
+    width:min(94vw,920px);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    border:2px solid #303030;
+
+    background:#000;
+
+    box-shadow:
+
+    0 0 40px rgba(0,0,0,.6);
+
+}
+
+canvas{
+
+    display:block;
+
+    width:100%;
+
+    height:auto;
+
+    background:#050505;
+
+}
+
+/* ==========================
+   Difficulty Selector
+========================== */
+
+.difficulty-selector{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:22px;
+
+}
+
+.difficulty-label{
+
+    color:#aaaaaa;
+
+    font-size:13px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+.difficulty-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    border-radius:14px;
+
+    padding:6px;
+
+}
+
+.diff-btn{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    color:#bbbbbb;
+
+    background:transparent;
+
+    font-size:14px;
+
+    font-weight:bold;
+
+    border-radius:10px;
+
+    padding:9px 18px;
+
+    transition:.2s;
+
+}
+
+.diff-btn:hover{
+
+    color:#ffffff;
+
+}
+
+.diff-btn.active{
+
+    color:#ffffff;
+
+    background:#008cff;
+
+    box-shadow:0 0 14px rgba(0,140,255,.5);
+
+}
+
+.diff-btn.active[data-level="easy"]{
+
+    background:#2dae5f;
+
+    box-shadow:0 0 14px rgba(45,174,95,.5);
+
+}
+
+.diff-btn.active[data-level="hard"]{
+
+    background:#ff4a4a;
+
+    box-shadow:0 0 14px rgba(255,74,74,.5);
+
+}
+
+/* ==========================
+   Menu Screen
+========================== */
+
+.menu-screen{
+
+    flex:1;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:24px;
+
+    min-height:100dvh;
+
+}
+
+.menu-screen.hidden{
+
+    display:none;
+
+}
+
+.menu-content{
+
+    width:min(92vw,420px);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:16px;
+
+    padding:36px 28px;
+
+    border-radius:26px;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    box-shadow:var(--shadow);
+
+    text-align:center;
+
+    animation:popup .3s ease;
+
+}
+
+.menu-logo img{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:16px;
+
+    box-shadow:0 0 24px rgba(0,140,255,.45);
+
+}
+
+.menu-title{
+
+    font-size:42px;
+
+    letter-spacing:8px;
+
+    color:#ffffff;
+
+}
+
+.menu-subtitle{
+
+    color:#999999;
+
+    margin-top:-10px;
+
+    font-size:14px;
+
+    letter-spacing:2px;
+
+    text-transform:uppercase;
+
+}
+
+.menu-play-btn{
+
+    width:100%;
+
+    margin-top:8px;
+
+    font-size:18px;
+
+    padding:16px 24px;
+
+    background:linear-gradient(90deg,#00a2ff,#00d5ff);
+
+    box-shadow:0 0 24px rgba(0,180,255,.4);
+
+}
+
+.menu-hint{
+
+    color:#888888;
+
+    font-size:12px;
+
+    line-height:1.6;
+
+}
+
+.menu-footer{
+
+    color:#666666;
+
+    font-size:11px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+}
+
+/* ==========================
+   Active Level Badge (In-Game)
+========================== */
+
+.active-level{
+
+    margin-top:16px;
+
+    color:#aaaaaa;
+
+    font-size:12px;
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+
+    background:var(--panel);
+
+    border:1px solid var(--border);
+
+    padding:8px 16px;
+
+    border-radius:10px;
+
+}
+
+/* ==========================
+   Buttons
+========================== */
+
+.controls{
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:18px;
+
+}
+
+button{
+
+    border:none;
+
+    outline:none;
+
+    cursor:pointer;
+
+    color:white;
+
+    font-size:16px;
+
+    font-weight:bold;
+
+    border-radius:14px;
+
+    padding:14px 24px;
+
+    transition:.25s;
+
+}
+
+#startBtn{
+
+    background:#008cff;
+
+}
+
+#restartBtn{
+
+    background:#444;
+
+}
+
+.ghost-btn{
+
+    background:transparent;
+
+    border:1px solid #3a3a3a;
+
+    color:#cccccc;
+
+}
+
+.ghost-btn:hover{
+
+    background:#1a1a1a;
+
+}
+
+button:hover{
+
+    transform:translateY(-2px);
+
+}
+
+button:active{
+
+    transform:scale(.97);
+
+}
+
+/* ==========================
+   Popup
+========================== */
+
+.popup{
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:rgba(0,0,0,.55);
+
+    backdrop-filter:blur(5px);
+
+    z-index:999;
+
+    animation:fade .25s;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+.popup-card{
+
+    width:min(90%,380px);
+
+    padding:30px;
+
+    border-radius:22px;
+
+    background:#101010;
+
+    border:1px solid #333;
+
+    text-align:center;
+
+    box-shadow:
+
+    0 0 40px rgba(0,0,0,.5);
+
+    animation:popup .28s;
+
+}
+
+.popup-card h2{
+
+    font-size:30px;
+
+    margin-bottom:12px;
+
+}
+
+.popup-card p{
+
+    color:#cfcfcf;
+
+    margin-bottom:25px;
+
+    line-height:1.5;
+
+}
+
+.popup-actions{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+}
+
+#playAgainBtn{
+
+    width:100%;
+
+    background:linear-gradient(90deg,#00a2ff,#00d5ff);
+
+}
+
+#menuFromPopupBtn{
+
+    width:100%;
+
+}
+
+/* ==========================
+   Animations
+========================== */
+
+@keyframes popup{
+
+    from{
+
+        opacity:0;
+
+        transform:scale(.8);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:scale(1);
+
+    }
+
+}
+
+@keyframes fade{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+/* ==========================
+   Install Banner (PWA)
+========================== */
+
+.install-banner{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    width:min(92vw,480px);
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:14px 16px;
+
+    background:#101010;
+
+    border:1px solid #303030;
+
+    border-radius:18px;
+
+    box-shadow:0 10px 40px rgba(0,0,0,.6);
+
+    z-index:998;
+
+    animation:slideUp .3s ease;
+
+}
+
+.install-banner.hidden{
+
+    display:none;
+
+}
+
+.install-icon img{
+
+    width:44px;
+
+    height:44px;
+
+    border-radius:10px;
+
+    display:block;
+
+}
+
+.install-text{
+
+    flex:1;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:2px;
+
+}
+
+.install-text strong{
+
+    font-size:14px;
+
+    color:#ffffff;
+
+}
+
+.install-text span{
+
+    font-size:12px;
+
+    color:#aaaaaa;
+
+    line-height:1.4;
+
+}
+
+.install-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+}
+
+#installBtn{
+
+    background:linear-gradient(90deg,#00a2ff,#00d5ff);
+
+    padding:10px 16px;
+
+    font-size:13px;
+
+    border-radius:10px;
+
+    white-space:nowrap;
+
+}
+
+#installDismissBtn{
+
+    background:transparent;
+
+    color:#888888;
+
+    font-size:20px;
+
+    line-height:1;
+
+    padding:4px 8px;
+
+    border-radius:8px;
+
+}
+
+#installDismissBtn:hover{
+
+    color:#ffffff;
+
+    background:#222222;
+
+}
+
+/* ==========================
+   Install Success Toast
+========================== */
+
+.install-toast{
+
+    position:fixed;
+
+    left:50%;
+
+    bottom:20px;
+
+    transform:translateX(-50%);
+
+    background:#123;
+
+    background:#0f5132;
+
+    color:#d6ffe8;
+
+    border:1px solid #2dae5f;
+
+    padding:12px 20px;
+
+    border-radius:14px;
+
+    font-size:13px;
+
+    font-weight:bold;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.5);
+
+    z-index:998;
+
+    animation:fade .3s ease;
+
+}
+
+.install-toast.hidden{
+
+    display:none;
+
+}
+
+@keyframes slideUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translate(-50%,20px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translate(-50%,0);
+
+    }
+
+}
+
+/* ==========================
+   Responsive
+========================== */
+
+@media (max-width:700px){
+
+.topbar h1{
+
+    font-size:28px;
+
+}
+
+.score-box{
+
+    width:95px;
+
+}
+
+#playerScore,
+#aiScore{
+
+    font-size:28px;
+
+}
+
+.controls{
+
+    width:100%;
+
+    flex-direction:column;
+
+}
+
+button{
+
+    width:100%;
+
+}
+
+.popup-card{
+
+    padding:24px;
+
+}
+
+.menu-title{
+
+    font-size:34px;
+
+    letter-spacing:5px;
+
+}
+
+.menu-content{
+
+    padding:30px 22px;
+
+}
+
+}
